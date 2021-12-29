@@ -31,8 +31,134 @@ Car Price Prediction is a really an interesting **Machine Learning** problem for
 | `NumPy` | `Pandas` | `MatplotLib` | `Seaborn` | `SciKit-Learn` | `Seaborn` | `Pickle` |
 | :-------- | :------- | :-------- | :------- | :-------- | :------- | :-------- |
 
-## Features
-Yet to be added
+## Let's Build Model now! ⚡️⚡️
+
+
+#### 1. Data Preprocessing
+
+- Import very first package for data reading for carrying out preprocessing techniques on the same
+
+```
+import pandas as pd
+```
+
+- Now, assign the data values from Dataset **Car_dataset.csv** with `read_csv`
+
+```
+df = pd.read_csv('Car_dataset.csv')
+```
+
+- Visualize and validate whether the dataset is successfully assigned to the vaariable
+
+```
+df.head()
+```
+
+![df.head()](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/df.head().png)
+
+- Check size of the Dataset
+
+```
+df.shape
+```
+
+![df.shape](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/df.shape.png)
+
+
+- Choosing features uniquely defines each car's properties hence varying values can be achieved
+
+- Features used here are `Seller_Type`, `Transmission`, `Owner`, `Fuel`
+
+- Using these features and their unique values which directly classify/differentiate each car
+
+```
+print(df['Seller_Type'].unique())
+print(df['Transmission'].unique())
+print(df['Owner'].unique())
+print(df['Fuel'].unique())
+```
+
+![Unique Values](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/Unique%20Values.png)
+
+- Checking if presence of `NULL` values in the dataset
+- 
+```
+df.isnull().sum()
+```
+
+![isnull()](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/isnull.png)
+
+
+- Describing all calculated statistical terms aka *Sum*, *Mean*, *Standard Deviation*, *Minimum*, *Maximum* etc
+
+```
+df.describe()
+```
+
+![df.describe()](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/parameters%20df.describe().png)
+
+- Fetching Columns present before **Data Preparation**
+
+```
+df.columns
+```
+
+![df.columns](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/df.columns().png)
+
+#### 2. Data Preparation
+
+- Neglecting unncessary column(s) from the Dataset i.e. `Car_Name` as `Car_name` may include many and is not uniquely differentiating as a feature
+
+```
+final_dataset = df[['Year', 'Selling_Price', 'Km_Driven', 'Fuel', 'Seller_Type','Transmission', 'Owner']]
+final_dataset.head()
+```
+
+![final_dataset1](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/final_dataset1.png)
+
+- We actually can add or modify features as per references for training and testing the model
+- Here, we are going to add a new feature `Car_Age` to simplify how many years a particular car is been used
+
+- Add a `Current_Year` column to Dataset having value _2021_ in all the rows as 2021 is the current year
+
+```
+final_dataset['Current_Year'] = 2021
+final_dataset.head()
+```
+
+![final_dataset2](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/final_dataset2.png)
+
+- Getting `Car_Age` with simple logic and finally adding `Car_Age` column
+
+```
+final_dataset['Car_Age'] = final_dataset['Current_Year'] - final_dataset['Year']
+final_dataset.head()
+```
+
+![final_dataset3](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/final_dataset3.png)
+
+- As we know how is old the car now, we can neglect both the `Year` and `Current_Year` columns now
+
+```
+final_dataset.drop(['Year'], axis = 1, inplace = True)
+final_dataset.drop(['Current_Year'], axis = 1, inplace = True)
+final_dataset.head()
+```
+
+![final_dataset4](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/final_dataset4.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Running Tests
