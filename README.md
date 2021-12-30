@@ -284,6 +284,21 @@ plt.show()
 ![plt.show()](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/plt.show().png)
 
 
+### 5. TRAINING ML MODEL
+
+- Whoosh! After all of the DATA PREPARATION, we can build our model for real
+- But before we'd do that, we have to split the data for training and testing our model
+- Training the model what is called Building a ML Model and Testing of the trained model will output the predicted Selling Price of the car which is our end goal
+- For Training and Testing we'll be using 8:2 ratio data. However it is best to use more of the present data for training purpose as it'll give very great accuracy at the end
+- Rest 20% of the data will be used for testing our ML model for its accuracy
+
+##### 5.1 Ensembling
+
+- The goal of [ENSEMBLE METHODS](https://scikit-learn.org/stable/modules/ensemble.html) is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability / robustness over a single estimator
+
+- We're using RandomForest
+
+
 
 
 
