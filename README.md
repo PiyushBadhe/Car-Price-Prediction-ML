@@ -1,12 +1,12 @@
 
 
-# Car Price Prediction ML 🚗
+# 🚗 Car Price Prediction ML 
 
 ![machine-learning-linear-regression](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/machine-learning-linear-regression.svg)
 
 ![Logo](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/ML%20classification.png?raw=true)
 
-## Need of Car Price Prediction in the first place
+## 🚀 Need of Car Price Prediction in the first place
 Used Cars so called Second-hand's car have a huge market base. Many consider to buy an Used Car intsead of buying a new one, as it's is feasible and a better investment.
 
 The main reason for this huge market is that when one buys a New Car and sale it just another day without any default on it, the price of car reduces by 30%.
@@ -15,17 +15,17 @@ There are too many frauds in the market who not only sale wrong but also they co
 
 To overcome this frauds and misleading ourselves from fake and improper prices, here I used this *Algorithm* predicting car values besed on some of the main features defining the values of cars by using real-world *#CarDekho* dataset to Predict the price of any used car.
 
-## Project Description 🚀
+## 📝 Project Description 
 [![Generic badge](https://img.shields.io/badge/DATA%20SCIENCE-Beginners-brightgreen)](https://github.com/PiyushBadhe/Car-Price-Prediction-ML) [![Generic badge](https://img.shields.io/badge/LANGUAGE-PYTHON-orange)](https://github.com/PiyushBadhe/Car-Price-Prediction-ML)
 
 Car Price Prediction is a really an interesting **Machine Learning** problem for a *beginner* as there are many factors that influence the price of a car in the second-hand market. In this Project, we will be looking at a dataset based on sale/purchase of cars where our end goal will be predicting the price of the car given its features to maximize the profit.
 
-## Dataset Required 🛠
+## 🛠 Dataset Required 
 
 [Car_dataset.csv](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/main/Car_dataset.csv)
 
 
-## Librariess used 🔗
+## ⚙️ Librariess used 
 
 I've used a separate ML environment where only limited but required libraries were installed
 
@@ -48,10 +48,10 @@ Seaborn : `!pip install seaborn`
 Pickle : `!pip install pickle`
 
 
-## Let's Build Model now! ⚡️⚡️
+##  Let's Build Model now! ⚡️⚡️
 
 
-#### 1. DATA PREPROCESSING
+### 1. DATA PREPROCESSING 🏽‍
 
 - Import very first package for data reading for carrying out preprocessing techniques on the same
 
@@ -122,7 +122,7 @@ df.columns
 
 ![df.columns](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/df.columns().png)
 
-#### 2. DATA PREPARATION
+### 2. DATA PREPARATION 🏽‍
 
 - Neglecting unncessary column(s) from the Dataset i.e. `Car_Name` as `Car_name` may include many and is not uniquely differentiating as a feature
 
@@ -184,7 +184,7 @@ final_dataset.head()
 ![Unicode](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/Unicode.png)
 
 
-#### 3. DATA VISUALIZATION
+### 3. DATA VISUALIZATION 🏽‍
 
 **Now it's time to Visualize the Data prepared till now**
 
@@ -219,7 +219,7 @@ hmap = sbs.heatmap(final_dataset[top_corr_features].corr(), annot = True, cmap =
 
 ![sbs.hmap](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/sbs.hmap.png)
 
-#### 4. FEATURE ENGINEERING
+### 4. FEATURE ENGINEERING 🏽‍
 
 - Let's have a look again to the Dataset prepared till now
 
@@ -284,7 +284,7 @@ plt.show()
 ![plt.show()](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/plt.show().png)
 
 
-### 5. TRAINING ML MODEL
+### 5. TRAINING ML MODEL 🏽‍
 
 - Whoosh! After all of the DATA PREPARATION, we can build our model for real
 - But before we'd do that, we have to split the data for training and testing our model
@@ -292,12 +292,72 @@ plt.show()
 - For Training and Testing we'll be using 8:2 ratio data. However it is best to use more of the present data for training purpose as it'll give very great accuracy at the end
 - Rest 20% of the data will be used for testing our ML model for its accuracy
 
-##### 5.1 Ensembling
+```
+from sklearn.model_selection import train_test_split
+X_train, X_test, Y_train, y_test = train_test_split(X,Y, test_size = 0.2)
+
+X_train.shape  # Checking the size of the dataset used for training our ML model
+```
+
+![X_train.shape](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/X_train.shape.png)
+
+
+##### 5.1 Ensembling 🔗
 
 - The goal of [ENSEMBLE METHODS](https://scikit-learn.org/stable/modules/ensemble.html) is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability / robustness over a single estimator
 
-- We're using RandomForest
+- In this project we're using [`RandomForestRegressor`](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html) 
 
+```
+from sklearn.ensemble import RandomForestRegressor
+
+rf_random = RandomForestRegressor()
+```
+
+- For *Estimation*, we'll be introducing `RandomizedSearchCV'
+
+- Randomized search on hyper parameters: RandomizedSearchCV implements a “fit” and a “score” method. It also implements “score_samples”, “predict”, “predict_proba”, “decision_function”, “transform” and “inverse_transform” if they are implemented in the estimator used. For more of `RandomizedSearchCV` refer to [this Article](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html)
+
+```
+from sklearn.model_selection import RandomizedSearchCV
+```
+```
+# Hyperparameters
+# RandomizedSearchCV
+
+import numpy as np
+
+# Number of trees in random forest
+n_estimators = [int(x) for x in np.linspace(start = 100, stop = 1200, num = 12)]
+
+# Number of features to consider at every split
+max_features = ['auto', 'sqrt']
+
+# Maximum number of levels in tree
+max_depth = [int(x) for x in np.linspace(5, 30, num = 6)] # max_depth.append(None)
+
+# Minimum number of samples required to split a node
+min_samples_split = [2, 5, 10, 15, 100]
+
+# Minimum number of samples required at each leaf node
+min_samples_leaf = [1, 2, 5, 10]
+
+```
+
+- Create the random grid
+
+```
+
+random_grid = {'n_estimators': n_estimators,
+               'max_features': max_features,
+               'max_depth': max_depth,
+               'min_samples_split': min_samples_split,
+               'min_samples_leaf': min_samples_leaf}
+
+print(random_grid)
+```
+
+![print(random_grid)](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/print(random_grid).png)
 
 
 
