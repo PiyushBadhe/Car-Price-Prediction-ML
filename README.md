@@ -51,7 +51,7 @@ Pickle : `!pip install pickle`
 ## Let's Build Model now! ⚡️⚡️
 
 
-#### 1. Data Preprocessing
+#### 1. DATA PREPROCESSING
 
 - Import very first package for data reading for carrying out preprocessing techniques on the same
 
@@ -122,7 +122,7 @@ df.columns
 
 ![df.columns](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/df.columns().png)
 
-#### 2. Data Preparation
+#### 2. DATA PREPARATION
 
 - Neglecting unncessary column(s) from the Dataset i.e. `Car_Name` as `Car_name` may include many and is not uniquely differentiating as a feature
 
@@ -184,7 +184,9 @@ final_dataset.head()
 ![Unicode](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/Unicode.png)
 
 
-#### 3. Now it's time to Visualize the Data prepared till now
+#### 3. DATA VISUALIZATION
+
+**Now it's time to Visualize the Data prepared till now**
 
 - Import `Seaborn` and plot a **Pairplot** very quickly
 
@@ -201,10 +203,15 @@ sbs.pairplot(final_dataset)
 ```
 import matplotlib.pyplot as plt
 %matplotlib inline
+
+
 # Heatmapping the data
 corrmat = final_dataset.corr()
 top_corr_features = corrmat.index
+
 plt.figure(figsize = (20, 20))
+
+
 # Visualize the heatmap
 hmap = sbs.heatmap(final_dataset[top_corr_features].corr(), annot = True, cmap = "RdYlGn")  # Color pattern chosen here = "RdYlGn"
 
@@ -212,34 +219,83 @@ hmap = sbs.heatmap(final_dataset[top_corr_features].corr(), annot = True, cmap =
 
 ![sbs.hmap](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/sbs.hmap.png)
 
+#### 4. FEATURE ENGINEERING
 
+- Let's have a look again to the Dataset prepared till now
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Running Tests
-
-To run tests, run the following command
-
-```bash
-  no run command detected
 ```
+final_dataset.head()
+```
+**DEPENDENT and INDEPENDENT Features**
+
+- Looking at the very first column of Dataset it is the `Selling_Price` we are going to predict through our ML Model
+- So in this case, we won't be needing this column for our model building
+- Let's then neglect `Selling_Price` then but now by using `iloc` function
+
+```
+X = final_dataset.iloc[:,1:] 
+Y = final_dataset.iloc[:,0]
+```
+
+```
+X.head()
+````
+
+![X.head()](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/X.head().png)
+
+```
+Y.head()
+```
+
+![Y.head()](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/Y.head().png)
+
+
+**FEATURE Importance**
+
+- Let's now fit our **X** and **Y** values to the model with `ExtraTreeRegressor`
+- Import `ExtraTreeRegressor` from `Seaborn`
+
+```
+from sklearn.ensemble import ExtraTreesRegressor
+model = ExtraTreesRegressor()
+model.fit(X, Y)
+```
+
+- Now we can know each of the features' Importance
+
+```
+print(model.feature_importances_)
+```
+
+![print(model.feature_importances_)](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/print(model.feature_importances_).png)
+
+- Are you able to understand the feature's understand? Or Can you tell which of the features is more important than another one?
+
+- So that's exactly where Visualization plays a very important role for drawing insights from the data we couldn't understand
+
+- Let's say we are going to plot a Graph of Features Importance
+
+```
+feat = pd.Series(model.feature_importances_, index = X.columns)
+feat.nlargest(5).plot(kind = 'barh')
+plt.show()
+```
+
+![plt.show()](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/plt.show().png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Support 💬
@@ -250,9 +306,6 @@ To run tests, run the following command
 
 [![Generic badge](https://img.shields.io/badge/CONNECT-LinkedIN-blue)](https://www.linkedin.com/in/piyush-badhe-626a9515b)
 
-## Screenshots
-
-![Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 
 ## Usage/Examples
