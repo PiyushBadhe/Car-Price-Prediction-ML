@@ -25,11 +25,28 @@ Car Price Prediction is a really an interesting **Machine Learning** problem for
 [Car_dataset.csv](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/main/Car_dataset.csv)
 
 
-## Modules used 🔗
+## Librariess used 🔗
+
+I've used a separate ML environment where only limited but required libraries were installed
 
 
 | `NumPy` | `Pandas` | `MatplotLib` | `Seaborn` | `SciKit-Learn` | `Seaborn` | `Pickle` |
 | :-------- | :------- | :-------- | :------- | :-------- | :------- | :-------- |
+
+**Use !pip command to install those libraries into your Environment**
+
+NumPy : It is an ibnbiult Library used in Python bu sometimes unexpectedly we need to download it `!pip install numpy`
+
+Pandas : `!pip install pandas`
+
+MatplotLib : `!pip install matplotlib`
+
+SciKit_Learn : `!pip install sklearn`
+
+Seaborn : `!pip install seaborn`
+
+Pickle : `!pip install pickle`
+
 
 ## Let's Build Model now! ⚡️⚡️
 
@@ -146,6 +163,61 @@ final_dataset.head()
 ```
 
 ![final_dataset4](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/final_dataset4.png)
+
+- Converting encoded unicode
+
+- In case if you don't know unicoding, let me simplify your doubt just in a minute with a small table;
+
+| {Parameter1} | {Parameter2} | {Parameter3} | Description |
+| :-------- | :-------- | :------- | :-------------------------------- |
+| 1 | 0  | 0 | This will represent the value is belonging to {Parameter1} |
+| 0 | 1  | 0 | This will represent the value is belonging to {Parameter2} |
+| 0 | 0  | 1 | This will represent the value is belonging to {Parameter3} |
+|   |    |   | TIP: But also when Parameter1==0 and Parameter2==0, It will actually represent belonging to {Parameter3} itself |
+
+```
+final_dataset = pd.get_dummies(final_dataset, drop_first = True) # First column should be deleted from "dummy variable trap"
+
+final_dataset.head()
+```
+
+![Unicode](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/Unicode.png)
+
+
+#### 3. Now it's time to Visualize the Data prepared till now
+
+- Import `Seaborn` and plot a **Pairplot** very quickly
+
+```
+import seaborn as sbs
+sbs.pairplot(final_dataset)
+```
+
+![sbs.pairplot](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/sbs.pairplot.png)
+
+- Import MatplotLib as well and plot a heatmap having correlation in between the data
+- For more of the `%matplotlib inline` term refer [this](https://stackoverflow.com/questions/43027980/purpose-of-matplotlib-inline#:~:text=%25matplotlib%20inline%20sets%20the%20backend,stored%20in%20the%20notebook%20document.) article.
+
+```
+import matplotlib.pyplot as plt
+%matplotlib inline
+# Heatmapping the data
+corrmat = final_dataset.corr()
+top_corr_features = corrmat.index
+plt.figure(figsize = (20, 20))
+# Visualize the heatmap
+hmap = sbs.heatmap(final_dataset[top_corr_features].corr(), annot = True, cmap = "RdYlGn")  # Color pattern chosen here = "RdYlGn"
+
+```
+
+![sbs.hmap](https://github.com/PiyushBadhe/Car-Price-Prediction-ML/blob/Miscellaneous/sbs.hmap.png)
+
+
+
+
+
+
+
 
 
 
